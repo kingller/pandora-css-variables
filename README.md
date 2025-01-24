@@ -1,13 +1,13 @@
 # pandora-css-variables
 
-generate css variables file from file `globalVarFile` and leaves the variables of file `varFile`.
+generate css variables file from file `globalVarFile` and preserves variables of file `varFile`.
 
 ## Install
 ```
 $ npm install -D pandora-css-variables
 ```
 
-## Example:
+## Usage
 
 ```
 const generateCssVariables = require('pandora-css-variables');
