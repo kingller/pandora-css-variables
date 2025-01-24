@@ -148,7 +148,14 @@ function generateCssVariablesContent({ varMapping, globalVarMapping }) {
     });
     let globalCss = '';
     Object.keys(globalVarMapping).forEach((varName) => {
-        globalCss += `${varName.replace(/^@/, '--')}: ${globalVarMapping[varName]};\n`;
+        const globalVarValue = globalVarMapping[varName];
+        if (/\(.*@.+\)/.test(globalVarValue)) {
+            // If there are variables in function, extract it for calculation
+            css += `${varName}: ${globalVarValue};\n`;
+            globalCss += `${varName.replace(/^@/, '--')}: ${varName};\n`;
+        } else {
+            globalCss += `${varName.replace(/^@/, '--')}: ${globalVarValue};\n`;
+        }
     });
     return `${css}:root {
 ${globalCss}}`;
