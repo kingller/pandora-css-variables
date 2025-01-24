@@ -46,10 +46,10 @@ function getImportFiles({ globalVarFile, globalVarContent }) {
 async function getImportVars({ globalVarFile, globalVarContent }) {
     const importVars = {};
     const importFiles = getImportFiles({ globalVarFile, globalVarContent });
-    await importFiles.forEach(async (importFilePath) => {
+    for (let importFilePath of importFiles) {
         const importFileVarJs = lessToJs(await readFile(importFilePath, { encoding: 'utf8' }));
         Object.assign(importVars, importFileVarJs);
-    });
+    }
     return importVars;
 }
 
@@ -92,7 +92,7 @@ async function recursiveSearchForVariables({
 async function getMissVar({ globalVarJs, globalVarFile, globalVarContent, varMapping }) {
     const missVarJs = {};
     const fetchOnceInfo = {};
-    await Object.keys(globalVarJs).forEach(async (varName) => {
+    for (let varName of Object.keys(globalVarJs)) {
         const varValue = globalVarJs[varName];
         await recursiveSearchForVariables({
             varValue,
@@ -102,7 +102,7 @@ async function getMissVar({ globalVarJs, globalVarFile, globalVarContent, varMap
             missVarJs,
             fetchOnceInfo,
         });
-    });
+    }
     return missVarJs;
 }
 
@@ -190,8 +190,10 @@ async function generateCssVariables({ varFile, globalVarFile, outputFilePath, op
         } else {
             console.log(`[pandora-css-variables] Css variables generated successfully`);
         }
+        return css;
     } catch (err) {
         console.log('[pandora-css-variables] Error', err);
+        throw err;
     }
 }
 

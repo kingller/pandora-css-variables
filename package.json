@@ -1,6 +1,6 @@
 {
   "name": "pandora-css-variables",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "generate css variables file from file `globalVarFile` and preserves variables of file `varFile`",
   "keywords": [
     "color",
